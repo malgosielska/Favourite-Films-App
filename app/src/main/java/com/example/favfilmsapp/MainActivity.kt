@@ -112,9 +112,6 @@ fun MessageCard(msg: Message) {
     }
 }
 
-
-//
-//
 //@Composable
 //fun MessageCard(msg: Message) {
 //    Row(modifier = Modifier.padding(all = 8.dp)) {

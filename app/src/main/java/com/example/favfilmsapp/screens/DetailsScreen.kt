@@ -48,7 +48,6 @@ fun DescriptionRow(movie: Movie) {
             contentDescription = movie.title,
             modifier = Modifier
                 .size(140.dp)
-                .border(1.5.dp, MaterialTheme.colorScheme.primary)
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -106,7 +105,6 @@ fun ActorCard(actor: Actor, onActorClick: (Int) -> Unit) {
             contentDescription = actor.name,
             modifier = Modifier
                 .size(60.dp)
-                .border(1.5.dp, MaterialTheme.colorScheme.primary)
                 .clickable { onActorClick(actor.photo) }
         )
 

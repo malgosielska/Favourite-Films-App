@@ -6,18 +6,35 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.StrokeCap.Companion.Square
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
@@ -37,6 +54,33 @@ class MainActivity : ComponentActivity() {
                     Navigation(movies)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Navigation(movies: List<Movie>) {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "mainScreen") {
+        composable("mainScreen") {
+            MainScreen(movies = movies) { selectedMovie ->
+                navController.navigate("movieDetails/${selectedMovie.title}")
+            }
+        }
+
+        composable(
+            route = "movieDetails/{movieTitle}",
+            arguments = listOf(
+                navArgument("movieTitle") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = false
+                }
+            )
+        ) { backStackEntry ->
+            val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: ""
+            val selectedMovie = movies.first { it.title == movieTitle }
+            MovieDetails(selectedMovie)
         }
     }
 }
@@ -70,23 +114,31 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit) {
     }
 }
 
-//@Preview(name = "Light Mode")
-//@Preview(
-//    uiMode = Configuration.UI_MODE_NIGHT_YES,
-//    showBackground = true,
-//    name = "Dark Mode"
-//)
+@Composable
+fun ActorsGrid(photos: List<Int>){
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(photos) { photo ->
+            PhotoItem(photo)
+        }
+    }
+}
 
-//@Composable
-//fun PreviewMovieCard() {
-//    FavFilmsAppTheme {
-//        Surface {
-//            MovieCard(
-//                movie = Movie(title="that is my title", imageResource = R.drawable.title, description = "", actors = listOf() , scenes = listOf()),
-//            )
-//        }
-//    }
-//}
+@Composable
+fun PhotoItem(photo: Int) {
+    Image(
+        painter = painterResource(id = photo),
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxSize()
+            .aspectRatio(1f)
+            .clip(shape = RectangleShape)
+            .padding(1.dp),
+        contentScale = ContentScale.Crop,
+    )
+}
 
 
 @Composable
@@ -98,48 +150,76 @@ fun MainScreen(movies: List<Movie>, onMovieClick: (Movie) -> Unit) {
     }
 }
 
-@Composable
-fun MovieDetails(movie: Movie) {
 
+@Composable
+fun FirstRow(movie: Movie) {
+    Spacer(modifier = Modifier.height(10.dp))
+
+    Row(
+        modifier = Modifier
+            .padding(all = 20.dp)
+    )
+    {
+        Image(
+            painter = painterResource(movie.imageResource),
+            contentDescription = movie.title,
+            modifier = Modifier
+                .size(140.dp)
+                .border(1.5.dp, MaterialTheme.colorScheme.primary)
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Text(
+            text = movie.description,
+            color = MaterialTheme.colorScheme.secondary,
+            style = MaterialTheme.typography.titleSmall,
+            fontSize = 10.sp
+        )
+    }
 }
 
 
-//@Preview
-//@Preview(
-//    uiMode = Configuration.UI_MODE_NIGHT_YES,
-//    showBackground = true,
-//    name = "Dark Mode"
-//)
-//@Composable
-//fun PreviewConversation() {
-//    FavFilmsAppTheme {
-//        MainScreen(SampleData.movies, ())
-//    }
-//}
-
 @Composable
-fun Navigation(movies: List<Movie>) {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "mainScreen") {
-        composable("mainScreen") {
-            MainScreen(movies = movies) { selectedMovie ->
-                navController.navigate("movieDetails/${selectedMovie.title}")
+fun MovieDetails(movie: Movie) {
+    Column {
+        FirstRow(movie = movie)
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+        ) {
+            Column ( modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)) {
+                Text(
+                    text = "Scenes",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                ActorsGrid(photos = movie.scenes)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Column( modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)) {
+                Text(
+                    text = "Starring",
+                    style = MaterialTheme.typography.bodyLarge,
+
+                )
+                // todo add starring
             }
         }
+    }
+}
 
-        composable(
-            route = "movieDetails/{movieTitle}",
-            arguments = listOf(
-                navArgument("movieTitle") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                    nullable = false
-                }
-            )
-        ) { backStackEntry ->
-            val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: ""
-            val selectedMovie = movies.first { it.title == movieTitle }
-            MovieDetails(selectedMovie)
-        }
+@Preview
+@Composable
+fun PreviewFirstRow() {
+    FavFilmsAppTheme {
+        MovieDetails(movie = SampleData.movies[0])
     }
 }

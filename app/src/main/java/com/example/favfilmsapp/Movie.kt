@@ -5,5 +5,5 @@ data class Movie(
     val imageResource: Int,
     val description: String,
     val scenes: List<Int>,
-    val actors: List<String>
+    val actors: List<Actor>
 )

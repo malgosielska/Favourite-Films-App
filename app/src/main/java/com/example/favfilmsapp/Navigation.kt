@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.favfilmsapp.screens.DisplayPhotoScreen
 import com.example.favfilmsapp.screens.MainScreen
 import com.example.favfilmsapp.screens.MovieDetailsScreen
 
@@ -31,8 +32,30 @@ fun Navigation(movies: List<Movie>) {
         ) { backStackEntry ->
             val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: ""
             val selectedMovie = movies.first { it.title == movieTitle }
-            MovieDetailsScreen(selectedMovie)
+            MovieDetailsScreen(selectedMovie) { photo ->
+                navController.navigate("displayPhoto/$movieTitle/$photo")
+            }
+        }
+
+        composable(
+            route = "displayPhoto/{movieTitle}/{photo}",
+            arguments = listOf(
+                navArgument("movieTitle") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = false
+                },
+                navArgument("photo") {
+                    type = NavType.IntType
+                    defaultValue = 0
+                    nullable = false
+                }
+            )
+        ) { backStackEntry ->
+            val photo = backStackEntry.arguments?.getInt("photo") ?: 0
+            DisplayPhotoScreen(photo = photo)
         }
     }
 }
+
 

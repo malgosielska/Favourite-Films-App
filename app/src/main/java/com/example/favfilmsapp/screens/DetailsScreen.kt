@@ -2,6 +2,7 @@ package com.example.favfilmsapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -62,7 +63,7 @@ fun DescriptionRow(movie: Movie) {
 }
 
 @Composable
-fun PhotoItem(photo: Int) {
+fun PhotoItem(photo: Int, onClick: () -> Unit) {
     Image(
         painter = painterResource(id = photo),
         contentDescription = null,
@@ -70,27 +71,30 @@ fun PhotoItem(photo: Int) {
             .fillMaxSize()
             .aspectRatio(1f)
             .clip(shape = RectangleShape)
+            .clickable(onClick = onClick)
             .padding(1.dp),
         contentScale = ContentScale.Crop,
     )
 }
 
 @Composable
-fun ScenesGrid(photos: List<Int>) {
+fun ScenesGrid(photos: List<Int>, onPhotoClicked: (Int) -> Unit) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxSize()
     ) {
         items(photos) { photo ->
-            PhotoItem(photo)
+            PhotoItem(photo) {
+                onPhotoClicked(photo)
+            }
         }
     }
 }
 
 
 @Composable
-fun ActorCard(actor: Actor) {
+fun ActorCard(actor: Actor, onActorClick: (Int) -> Unit) {
     Row(
         modifier = Modifier
             .padding(all = 8.dp)
@@ -103,6 +107,7 @@ fun ActorCard(actor: Actor) {
             modifier = Modifier
                 .size(60.dp)
                 .border(1.5.dp, MaterialTheme.colorScheme.primary)
+                .clickable { onActorClick(actor.photo) }
         )
 
         Text(
@@ -116,10 +121,12 @@ fun ActorCard(actor: Actor) {
 }
 
 @Composable
-fun ActorList(actors: List<Actor>) {
+fun ActorList(actors: List<Actor>, onActorClicked: (Int) -> Unit) {
     LazyColumn {
         items(actors) { actor ->
-            ActorCard(actor = actor)
+            ActorCard(actor = actor) {
+                onActorClicked(actor.photo)
+            }
         }
     }
 }
@@ -138,7 +145,7 @@ fun SectionTitle(title: String) {
 }
 
 @Composable
-fun ScenesAndActorsSection(movie: Movie) {
+fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
     Row(
         modifier = Modifier
             .padding(top = 16.dp),
@@ -151,7 +158,7 @@ fun ScenesAndActorsSection(movie: Movie) {
                 .weight(1f)
         ) {
             SectionTitle(title = "SCENES")
-            ScenesGrid(photos = movie.scenes)
+            ScenesGrid(photos = movie.scenes, onPhotoClick)
         }
 
         Spacer(modifier = Modifier.width(10.dp))
@@ -162,15 +169,15 @@ fun ScenesAndActorsSection(movie: Movie) {
                 .weight(1f)
         ) {
             SectionTitle(title = "STARRING")
-            ActorList(actors = movie.actors)
+            ActorList(actors = movie.actors,  onPhotoClick)
         }
     }
 }
 
 @Composable
-fun MovieDetailsScreen(movie: Movie) {
+fun MovieDetailsScreen(movie: Movie, onPhotoClick: (Int) -> Unit) {
     Column {
         DescriptionRow(movie = movie)
-        ScenesAndActorsSection(movie = movie)
+        ScenesAndActorsSection(movie = movie, onPhotoClick)
     }
 }

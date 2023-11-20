@@ -1,7 +1,7 @@
 package com.example.favfilmsapp.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,25 +13,32 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.favfilmsapp.Actor
 import com.example.favfilmsapp.Movie
+import com.example.favfilmsapp.movies.GreaseData
 
 
 @Composable
@@ -104,7 +111,7 @@ fun ActorCard(actor: Actor, onActorClick: (Int) -> Unit) {
             painter = painterResource(actor.photo),
             contentDescription = actor.name,
             modifier = Modifier
-                .size(60.dp)
+                .size(100.dp)
                 .clickable { onActorClick(actor.photo) }
         )
 
@@ -130,44 +137,42 @@ fun ActorList(actors: List<Actor>, onActorClicked: (Int) -> Unit) {
 }
 
 @Composable
-fun SectionTitle(title: String) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.bodyLarge,
-        fontSize = 16.sp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .wrapContentSize(Alignment.Center)
-    )
+fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
+    var selectedTabIndex by remember { mutableStateOf(0) }
+
+    MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
+        selectedTabIndex = newTabIndex
+    })
+
+    when (selectedTabIndex) {
+        0 -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                ScenesGrid(photos = movie.scenes, onPhotoClick)
+            }
+        }
+
+        1 -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                ActorList(actors = movie.actors, onPhotoClick)
+            }
+        }
+    }
 }
 
 @Composable
-fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
-    Row(
-        modifier = Modifier
-            .padding(top = 16.dp),
-    ) {
-        Spacer(modifier = Modifier.width(10.dp))
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            SectionTitle(title = "SCENES")
-            ScenesGrid(photos = movie.scenes, onPhotoClick)
+fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
+    TabRow(selectedTabIndex = selectedTabIndex) {
+        Tab(selected = selectedTabIndex == 0, onClick = { updateTabIndex(0) }) {
+            Text("Scenes")
         }
-
-        Spacer(modifier = Modifier.width(10.dp))
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            SectionTitle(title = "STARRING")
-            ActorList(actors = movie.actors,  onPhotoClick)
+        Tab(selected = selectedTabIndex == 1, onClick = { updateTabIndex(1) }) {
+            Text("Starring")
         }
     }
 }
@@ -177,5 +182,13 @@ fun MovieDetailsScreen(movie: Movie, onPhotoClick: (Int) -> Unit) {
     Column {
         DescriptionRow(movie = movie)
         ScenesAndActorsSection(movie = movie, onPhotoClick)
+    }
+}
+
+@Preview
+@Composable
+fun MovieDetailsScreen() {
+    MovieDetailsScreen(GreaseData.greaseMovie) {
+
     }
 }

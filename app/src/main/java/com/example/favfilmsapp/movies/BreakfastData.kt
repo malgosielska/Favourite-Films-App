@@ -5,7 +5,7 @@ import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.R
 
 object BreakfastData {
-    private val breakfastScenes =listOf(
+    private val breakfastScenes = listOf(
         R.drawable.breakfast_1,
         R.drawable.breakfast_2,
         R.drawable.breakfast_3,
@@ -45,7 +45,8 @@ object BreakfastData {
         )
     )
 
-    private const val breakfastDescription = "A young New York socialite becomes interested in a young man who has moved into her apartment building, but her past threatens to get in the way."
+    private const val breakfastDescription =
+        "A young New York socialite becomes interested in a young man who has moved into her apartment building, but her past threatens to get in the way."
 
     val breakfastMovie = Movie(
         title = "Breakfast at Tiffany's",

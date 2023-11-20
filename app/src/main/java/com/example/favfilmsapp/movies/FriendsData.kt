@@ -5,7 +5,7 @@ import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.R
 
 object FriendsData {
-    private val friendsScenes =listOf(
+    private val friendsScenes = listOf(
         R.drawable.friends_1,
         R.drawable.friends_2,
         R.drawable.friends_3,
@@ -50,7 +50,8 @@ object FriendsData {
         )
     )
 
-    private const val friendsDescription = "Friends is a 90's Comedy TV show, based in Manhattan, about 6 friends who go through just about every life experience imaginable together"
+    private const val friendsDescription =
+        "Friends is a 90's Comedy TV show, based in Manhattan, about 6 friends who go through just about every life experience imaginable together"
 
     val friendsMovie = Movie(
         title = "Friends",

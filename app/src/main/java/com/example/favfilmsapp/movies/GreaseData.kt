@@ -5,7 +5,7 @@ import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.R
 
 object GreaseData {
-    private val greaseScenes =listOf(
+    private val greaseScenes = listOf(
         R.drawable.grease_1,
         R.drawable.grease_2,
         R.drawable.grease_3,
@@ -40,7 +40,8 @@ object GreaseData {
         )
     )
 
-    private const val greaseDescription = "Good girl Sandy Olsson and greaser Danny Zuko fell in love over the summer. When they unexpectedly discover they're now in the same high school, will they be able to rekindle their romance?"
+    private const val greaseDescription =
+        "Good girl Sandy Olsson and greaser Danny Zuko fell in love over the summer. When they unexpectedly discover they're now in the same high school, will they be able to rekindle their romance?"
 
     val greaseMovie = Movie(
         title = "Grease",

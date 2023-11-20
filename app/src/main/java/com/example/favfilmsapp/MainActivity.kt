@@ -3,6 +3,7 @@ package com.example.favfilmsapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.favfilmsapp.movies.Movies
 import com.example.favfilmsapp.ui.theme.FavFilmsAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +12,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             setContent {
                 FavFilmsAppTheme {
-                    Navigation(SampleData.movies)
+                    Navigation(Movies.movies)
                 }
             }
         }

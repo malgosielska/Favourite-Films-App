@@ -18,5 +18,4 @@ fun DisplayPhotoScreen(photo: Int) {
             contentScale = ContentScale.Fit
         )
     }
-
 }

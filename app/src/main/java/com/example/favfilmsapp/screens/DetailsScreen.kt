@@ -47,14 +47,14 @@ fun DescriptionRow(movie: Movie) {
 
     Row(
         modifier = Modifier
-            .padding(all = 20.dp)
+            .padding(all = 5.dp)
     )
     {
         Image(
             painter = painterResource(movie.imageResource),
             contentDescription = movie.title,
             modifier = Modifier
-                .size(140.dp)
+                .size(150.dp)
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -68,73 +68,6 @@ fun DescriptionRow(movie: Movie) {
     }
 }
 
-@Composable
-fun PhotoItem(photo: Int, onClick: () -> Unit) {
-    Image(
-        painter = painterResource(id = photo),
-        contentDescription = null,
-        modifier = Modifier
-            .fillMaxSize()
-            .aspectRatio(1f)
-            .clip(shape = RectangleShape)
-            .clickable(onClick = onClick)
-            .padding(1.dp),
-        contentScale = ContentScale.Crop,
-    )
-}
-
-@Composable
-fun ScenesGrid(photos: List<Int>, onPhotoClicked: (Int) -> Unit) {
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = Modifier.fillMaxSize()
-    ) {
-        items(photos) { photo ->
-            PhotoItem(photo) {
-                onPhotoClicked(photo)
-            }
-        }
-    }
-}
-
-
-@Composable
-fun ActorCard(actor: Actor, onActorClick: (Int) -> Unit) {
-    Row(
-        modifier = Modifier
-            .padding(all = 8.dp)
-            .fillMaxWidth()
-    )
-    {
-        Image(
-            painter = painterResource(actor.photo),
-            contentDescription = actor.name,
-            modifier = Modifier
-                .size(100.dp)
-                .clickable { onActorClick(actor.photo) }
-        )
-
-        Text(
-            text = actor.name,
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.padding(all = 10.dp),
-            fontSize = 14.sp
-        )
-    }
-}
-
-@Composable
-fun ActorList(actors: List<Actor>, onActorClicked: (Int) -> Unit) {
-    LazyColumn {
-        items(actors) { actor ->
-            ActorCard(actor = actor) {
-                onActorClicked(actor.photo)
-            }
-        }
-    }
-}
 
 @Composable
 fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
@@ -168,10 +101,13 @@ fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
 @Composable
 fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
     TabRow(selectedTabIndex = selectedTabIndex) {
-        Tab(selected = selectedTabIndex == 0, onClick = { updateTabIndex(0) }) {
+        Tab(selected = selectedTabIndex == 0, modifier = Modifier.background(color = Color(
+            0xFFF9F9F9
+        )
+        ), onClick = { updateTabIndex(0) }) {
             Text("Scenes")
         }
-        Tab(selected = selectedTabIndex == 1, onClick = { updateTabIndex(1) }) {
+        Tab(selected = selectedTabIndex == 1, modifier = Modifier.background(Color(0xFFF9F9F9)), onClick = { updateTabIndex(1) }) {
             Text("Starring")
         }
     }
@@ -182,13 +118,5 @@ fun MovieDetailsScreen(movie: Movie, onPhotoClick: (Int) -> Unit) {
     Column {
         DescriptionRow(movie = movie)
         ScenesAndActorsSection(movie = movie, onPhotoClick)
-    }
-}
-
-@Preview
-@Composable
-fun MovieDetailsScreen() {
-    MovieDetailsScreen(GreaseData.greaseMovie) {
-
     }
 }

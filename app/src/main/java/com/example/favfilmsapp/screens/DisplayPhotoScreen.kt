@@ -13,7 +13,7 @@ import com.example.favfilmsapp.MovieViewModel
 fun DisplayPhotoScreen(viewModel: MovieViewModel) {
     val selectedPhoto = viewModel.selectedPhoto.value
     Row {
-        if (selectedPhoto != null){
+        if (selectedPhoto != null) {
             Image(
                 painter = painterResource(id = selectedPhoto),
                 contentDescription = null,

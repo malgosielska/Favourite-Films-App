@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +40,7 @@ fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewMo
     Row(
         modifier = Modifier
             .padding(all = 8.dp)
-            .clickable (onClick = {
+            .clickable(onClick = {
                 viewModel.changeSelectedMovie(movie)
                 navController.navigate(DESCRIPTION_ROUTE)
             })

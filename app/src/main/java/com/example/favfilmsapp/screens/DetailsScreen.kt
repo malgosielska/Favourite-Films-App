@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +30,7 @@ import com.example.favfilmsapp.Movie
 
 @Composable
 fun DescriptionRow(movie: Movie) {
+
     Spacer(modifier = Modifier.height(10.dp))
 
     Row(
@@ -106,6 +108,7 @@ fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
 @Composable
 fun MovieDetailsScreen(movie: Movie, onPhotoClick: (Int) -> Unit) {
     Column {
+        MyAppTopBar(title = movie.title)
         DescriptionRow(movie = movie)
         ScenesAndActorsSection(movie = movie, onPhotoClick)
     }

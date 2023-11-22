@@ -20,7 +20,7 @@ object GreaseData {
     private val greaseActors = listOf(
         Actor(
             name = "John Travolta",
-            photo = R.drawable.john_travolta
+            photo = R.drawable.grease_john
         ),
         Actor(
             name = "Olivia Newton-John",

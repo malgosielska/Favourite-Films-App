@@ -41,7 +41,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit) {
             painter = painterResource(movie.imageResource),
             contentDescription = movie.title,
             modifier = Modifier
-                .size(140.dp)
+                .size(230.dp)
         )
 
         Spacer(modifier = Modifier.width(10.dp))

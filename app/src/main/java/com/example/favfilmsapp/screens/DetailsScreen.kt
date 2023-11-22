@@ -25,7 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.favfilmsapp.Movie
+import com.example.favfilmsapp.MovieViewModel
 
 
 @Composable
@@ -58,7 +60,7 @@ fun DescriptionRow(movie: Movie) {
 
 
 @Composable
-fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
+fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
     var selectedTabIndex by remember { mutableStateOf(0) }
 
     MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
@@ -71,7 +73,7 @@ fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                ScenesGrid(photos = movie.scenes, onPhotoClick)
+                ScenesGrid(photos = movie.scenes, navController, viewModel)
             }
         }
 
@@ -80,7 +82,7 @@ fun ScenesAndActorsSection(movie: Movie, onPhotoClick: (Int) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                ActorList(actors = movie.actors, onPhotoClick)
+                ActorList(actors = movie.actors, navController, viewModel)
             }
         }
     }
@@ -106,10 +108,13 @@ fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
 }
 
 @Composable
-fun MovieDetailsScreen(movie: Movie, onPhotoClick: (Int) -> Unit) {
+fun MovieDetailsScreen(navController: NavController, viewModel: MovieViewModel) {
+    val selectedMovie = viewModel.selectedMovie.value
     Column {
-        MyAppTopBar(title = movie.title)
-        DescriptionRow(movie = movie)
-        ScenesAndActorsSection(movie = movie, onPhotoClick)
+        if (selectedMovie != null) {
+            MyAppTopBar(title = selectedMovie.title)
+            DescriptionRow(movie = selectedMovie)
+            ScenesAndActorsSection(movie = selectedMovie, navController, viewModel)
+        }
     }
 }

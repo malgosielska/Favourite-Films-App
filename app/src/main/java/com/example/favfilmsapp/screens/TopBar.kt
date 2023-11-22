@@ -23,18 +23,17 @@ import com.example.favfilmsapp.ui.theme.background
 @Composable
 fun MyAppTopBar(title: String) {
     Surface(
-        color = MaterialTheme.colorScheme.secondary // Kolor top baru
+        color = MaterialTheme.colorScheme.secondary
     ) {
         TopAppBar(
             modifier = Modifier
                 .padding(10.dp)
                 .height(30.dp),
-            // Wysokość top baru
-            // Przezroczyste tło top baru
+
             title = {
                 Text(
                     text = title,
-                    color = Color.White// Kolor tekstu
+                    color = Color.White
                 )
             },
             colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.secondary )

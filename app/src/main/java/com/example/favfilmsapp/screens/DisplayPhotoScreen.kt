@@ -21,6 +21,5 @@ fun DisplayPhotoScreen(viewModel: MovieViewModel) {
                 contentScale = ContentScale.Fit
             )
         }
-
     }
 }

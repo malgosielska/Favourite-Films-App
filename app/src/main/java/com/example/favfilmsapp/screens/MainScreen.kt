@@ -10,17 +10,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.DESCRIPTION_ROUTE
 import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.ui.theme.Typography
 
 
 @Composable
@@ -57,10 +56,8 @@ fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewMo
 
         Text(
             text = movie.title,
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall,
+            style = Typography.bodyLarge,
             modifier = Modifier.padding(all = 14.dp),
-            fontSize = 20.sp
         )
     }
 }

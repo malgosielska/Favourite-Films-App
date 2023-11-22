@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -23,10 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.ui.theme.Typography
+import com.example.favfilmsapp.ui.theme.background
 
 
 @Composable
@@ -50,9 +50,7 @@ fun DescriptionRow(movie: Movie) {
 
         Text(
             text = movie.description,
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall,
-            fontSize = 14.sp
+            style = Typography.bodyMedium,
         )
     }
 }
@@ -89,19 +87,23 @@ fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel
 
 @Composable
 fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
-    TabRow(selectedTabIndex = selectedTabIndex) {
-        Tab(selected = selectedTabIndex == 0, modifier = Modifier.background(
-            color = Color(
-                0xFFF9F9F9
-            )
-        ), onClick = { updateTabIndex(0) }) {
-            Text("Scenes")
+    TabRow(
+        containerColor = Color.LightGray, // Kolor tła całego TabRow
+        selectedTabIndex = selectedTabIndex,
+    ) {
+        Tab(
+            selected = selectedTabIndex == 0,
+            modifier = Modifier.background(
+                color = background
+            ),
+            onClick = { updateTabIndex(0) }) {
+            Text("Scenes", style = Typography.bodyMedium)
         }
         Tab(
             selected = selectedTabIndex == 1,
-            modifier = Modifier.background(Color(0xFFF9F9F9)),
+            modifier = Modifier.background(background),
             onClick = { updateTabIndex(1) }) {
-            Text("Starring")
+            Text(text = "Starring", style = Typography.bodyMedium)
         }
     }
 }

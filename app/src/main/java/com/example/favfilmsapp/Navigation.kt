@@ -1,61 +1,44 @@
 package com.example.favfilmsapp
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.favfilmsapp.screens.DisplayPhotoScreen
 import com.example.favfilmsapp.screens.MainScreen
 import com.example.favfilmsapp.screens.MovieDetailsScreen
 
+const val MAIN_SCREEN_ROUTE = "main_screen"
+const val DESCRIPTION_ROUTE = "description_screen"
+const val PHOTO_ROUTE = "photo_screen"
+
 @Composable
-fun Navigation(movies: List<Movie>) {
+fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "mainScreen") {
-        composable("mainScreen") {
-            MainScreen(movies = movies) { selectedMovie ->
-                navController.navigate("movieDetails/${selectedMovie.title}")
-            }
+    val viewModel = MovieViewModel()
+
+    NavHost(
+        navController = navController,
+        startDestination = MAIN_SCREEN_ROUTE
+    ) {
+        composable(MAIN_SCREEN_ROUTE) {
+            MainScreen(navController = navController, viewModel = viewModel)
         }
 
         composable(
-            route = "movieDetails/{movieTitle}",
-            arguments = listOf(
-                navArgument("movieTitle") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                    nullable = false
-                }
-            )
-        ) { backStackEntry ->
-            val movieTitle = backStackEntry.arguments?.getString("movieTitle") ?: ""
-            val selectedMovie = movies.first { it.title == movieTitle }
-            MovieDetailsScreen(selectedMovie) { photo ->
-                navController.navigate("displayPhoto/$movieTitle/$photo")
-            }
+            route = DESCRIPTION_ROUTE,
+        ) {
+            MovieDetailsScreen(navController = navController, viewModel = viewModel)
         }
 
         composable(
-            route = "displayPhoto/{movieTitle}/{photo}",
-            arguments = listOf(
-                navArgument("movieTitle") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                    nullable = false
-                },
-                navArgument("photo") {
-                    type = NavType.IntType
-                    defaultValue = 0
-                    nullable = false
-                }
-            )
-        ) { backStackEntry ->
-            val photo = backStackEntry.arguments?.getInt("photo") ?: 0
-            DisplayPhotoScreen(photo = photo)
+            route = PHOTO_ROUTE,
+        ) {
+            DisplayPhotoScreen(viewModel = viewModel)
         }
     }
 }
+
+
 
 

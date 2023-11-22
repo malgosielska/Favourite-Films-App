@@ -15,10 +15,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.PHOTO_ROUTE
 
 
 @Composable
-fun PhotoItem(photo: Int, onClick: () -> Unit) {
+fun PhotoItem(photo: Int, navController: NavController, viewModel: MovieViewModel) {
     Image(
         painter = painterResource(id = photo),
         contentDescription = null,
@@ -26,23 +29,25 @@ fun PhotoItem(photo: Int, onClick: () -> Unit) {
             .fillMaxSize()
             .aspectRatio(1f)
             .clip(shape = RectangleShape)
-            .clickable(onClick = onClick)
+            .clickable(onClick = {
+                viewModel.changeSelectedPhoto(photo)
+                navController.navigate(PHOTO_ROUTE)
+            }
+            )
             .padding(1.dp),
         contentScale = ContentScale.Crop,
     )
 }
 
 @Composable
-fun ScenesGrid(photos: List<Int>, onPhotoClicked: (Int) -> Unit) {
+fun ScenesGrid(photos: List<Int>, navController: NavController, viewModel: MovieViewModel) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxSize()
     ) {
         items(photos) { photo ->
-            PhotoItem(photo) {
-                onPhotoClicked(photo)
-            }
+            PhotoItem(photo, navController, viewModel)
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.favfilmsapp.movies
 
-object Movies {
+object MoviesData {
     val movies = listOf(
         GreaseData.greaseMovie,
         BreakfastData.breakfastMovie,

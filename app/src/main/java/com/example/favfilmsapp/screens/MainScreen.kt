@@ -10,40 +10,39 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.favfilmsapp.DESCRIPTION_ROUTE
 import com.example.favfilmsapp.Movie
-import com.example.favfilmsapp.movies.Movies
+import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.ui.theme.Typography
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(movies: List<Movie>, onMovieClick: (Movie) -> Unit) {
-
+fun MainScreen(navController: NavController, viewModel: MovieViewModel) {
     Column {
         MyAppTopBar(title = "Vintage Vibes: Most Iconic Movies")
         LazyColumn {
-            items(movies) { movie ->
-                MovieCard(movie = movie, onMovieClick)
+            items(viewModel.movies) { movie ->
+                MovieCard(movie = movie, navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit) {
+fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
     Row(
         modifier = Modifier
             .padding(all = 8.dp)
-            .clickable { onMovieClick(movie) }
+            .clickable(onClick = {
+                viewModel.changeSelectedMovie(movie)
+                navController.navigate(DESCRIPTION_ROUTE)
+            })
     )
     {
         Image(
@@ -57,10 +56,8 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit) {
 
         Text(
             text = movie.title,
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall,
+            style = Typography.bodyLarge,
             modifier = Modifier.padding(all = 14.dp),
-            fontSize = 20.sp
         )
     }
 }

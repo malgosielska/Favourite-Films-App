@@ -7,15 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import com.example.favfilmsapp.MovieViewModel
 
 @Composable
-fun DisplayPhotoScreen(photo: Int) {
+fun DisplayPhotoScreen(viewModel: MovieViewModel) {
+    val selectedPhoto = viewModel.selectedPhoto.value
     Row {
-        Image(
-            painter = painterResource(id = photo),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Fit
-        )
+        if (selectedPhoto != null) {
+            Image(
+                painter = painterResource(id = selectedPhoto),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Fit
+            )
+        }
     }
 }

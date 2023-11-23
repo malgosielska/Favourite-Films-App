@@ -50,7 +50,7 @@ object BreakfastData {
 
     val breakfastMovie = Movie(
         title = "Breakfast at Tiffany's",
-        imageResource = R.drawable.breakfast_poster,
+        poster = R.drawable.breakfast_poster,
         description = breakfastDescription,
         actors = breakfastActors,
         scenes = breakfastScenes

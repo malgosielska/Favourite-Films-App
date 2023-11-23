@@ -45,7 +45,7 @@ object GreaseData {
 
     val greaseMovie = Movie(
         title = "Grease",
-        imageResource = R.drawable.grease_poster,
+        poster = R.drawable.grease_poster,
         description = greaseDescription,
         actors = greaseActors,
         scenes = greaseScenes

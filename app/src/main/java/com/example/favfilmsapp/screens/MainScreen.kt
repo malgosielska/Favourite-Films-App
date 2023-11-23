@@ -46,7 +46,7 @@ fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewMo
     )
     {
         Image(
-            painter = painterResource(movie.imageResource),
+            painter = painterResource(movie.poster),
             contentDescription = movie.title,
             modifier = Modifier
                 .size(230.dp)

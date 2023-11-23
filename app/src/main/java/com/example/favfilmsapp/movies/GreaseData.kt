@@ -15,6 +15,9 @@ object GreaseData {
         R.drawable.grease_7,
         R.drawable.grease_8,
         R.drawable.grease_9,
+        R.drawable.grease_10,
+        R.drawable.grease_11,
+        R.drawable.grease_12,
     )
 
     private val greaseActors = listOf(

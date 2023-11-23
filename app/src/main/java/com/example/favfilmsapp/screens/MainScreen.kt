@@ -13,12 +13,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.DESCRIPTION_ROUTE
 import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.R
 import com.example.favfilmsapp.ui.theme.Typography
 
 
@@ -38,7 +39,7 @@ fun MainScreen(navController: NavController, viewModel: MovieViewModel) {
 fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
     Row(
         modifier = Modifier
-            .padding(all = 8.dp)
+            .padding(all = dimensionResource(id = R.dimen.padding_medium))
             .clickable(onClick = {
                 viewModel.changeSelectedMovie(movie)
                 navController.navigate(DESCRIPTION_ROUTE)
@@ -46,18 +47,18 @@ fun MovieCard(movie: Movie, navController: NavController, viewModel: MovieViewMo
     )
     {
         Image(
-            painter = painterResource(movie.imageResource),
+            painter = painterResource(movie.poster),
             contentDescription = movie.title,
             modifier = Modifier
-                .size(230.dp)
+                .size(dimensionResource(id = R.dimen.huge_image))
         )
 
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacer_medium)))
 
         Text(
             text = movie.title,
             style = Typography.bodyLarge,
-            modifier = Modifier.padding(all = 14.dp),
+            modifier = Modifier.padding(all = dimensionResource(id = R.dimen.padding_normal)),
         )
     }
 }

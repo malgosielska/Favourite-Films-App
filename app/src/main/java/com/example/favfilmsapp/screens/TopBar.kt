@@ -9,7 +9,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import com.example.favfilmsapp.R
 import com.example.favfilmsapp.ui.theme.Typography
 import com.example.favfilmsapp.ui.theme.topBar
 
@@ -21,8 +22,11 @@ fun MyAppTopBar(title: String) {
     ) {
         TopAppBar(
             modifier = Modifier
-                .padding(10.dp)
-                .heightIn(min = 25.dp, max = 35.dp),
+                .padding(dimensionResource(id = R.dimen.padding_medium))
+                .heightIn(
+                    min = dimensionResource(id = R.dimen.min_height),
+                    max = dimensionResource(id = R.dimen.max_height)
+                ),
 
             title = {
                 Text(

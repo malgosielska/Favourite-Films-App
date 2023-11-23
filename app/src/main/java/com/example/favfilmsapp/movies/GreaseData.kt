@@ -15,6 +15,9 @@ object GreaseData {
         R.drawable.grease_7,
         R.drawable.grease_8,
         R.drawable.grease_9,
+        R.drawable.grease_10,
+        R.drawable.grease_11,
+        R.drawable.grease_12,
     )
 
     private val greaseActors = listOf(
@@ -45,7 +48,7 @@ object GreaseData {
 
     val greaseMovie = Movie(
         title = "Grease",
-        imageResource = R.drawable.grease_poster,
+        poster = R.drawable.grease_poster,
         description = greaseDescription,
         actors = greaseActors,
         scenes = greaseScenes

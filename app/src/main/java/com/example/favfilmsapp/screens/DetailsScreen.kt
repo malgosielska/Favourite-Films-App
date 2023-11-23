@@ -2,6 +2,7 @@ package com.example.favfilmsapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,33 +21,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.MovieViewModel
+import com.example.favfilmsapp.PHOTO_ROUTE
+import com.example.favfilmsapp.R
 import com.example.favfilmsapp.ui.theme.Typography
 import com.example.favfilmsapp.ui.theme.background
 
 
 @Composable
-fun DescriptionRow(movie: Movie) {
+fun DescriptionRow(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
 
-    Spacer(modifier = Modifier.height(10.dp))
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_medium)))
 
     Row(
         modifier = Modifier
-            .padding(all = 5.dp)
+            .padding(all = dimensionResource(id = R.dimen.padding_small))
     )
     {
         Image(
-            painter = painterResource(movie.imageResource),
+            painter = painterResource(movie.poster),
             contentDescription = movie.title,
             modifier = Modifier
-                .size(150.dp)
+                .size(dimensionResource(id = R.dimen.image_size))
+                .clickable(onClick = {
+                    viewModel.changeSelectedPhoto(movie.poster)
+                    navController.navigate(PHOTO_ROUTE)
+                })
         )
 
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacer_large)))
 
         Text(
             text = movie.description,
@@ -114,7 +121,7 @@ fun MovieDetailsScreen(navController: NavController, viewModel: MovieViewModel) 
     Column {
         if (selectedMovie != null) {
             MyAppTopBar(title = selectedMovie.title)
-            DescriptionRow(movie = selectedMovie)
+            DescriptionRow(movie = selectedMovie, navController, viewModel)
             ScenesAndActorsSection(movie = selectedMovie, navController, viewModel)
         }
     }

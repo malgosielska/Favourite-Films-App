@@ -15,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.Actor
 import com.example.favfilmsapp.MovieViewModel
 import com.example.favfilmsapp.PHOTO_ROUTE
+import com.example.favfilmsapp.R
 import com.example.favfilmsapp.ui.theme.Typography
 
 
@@ -28,7 +29,7 @@ import com.example.favfilmsapp.ui.theme.Typography
 fun ActorCard(actor: Actor, navController: NavController, viewModel: MovieViewModel) {
     Row(
         modifier = Modifier
-            .padding(all = 5.dp)
+            .padding(all = dimensionResource(id = R.dimen.padding_small))
             .fillMaxWidth()
     )
     {
@@ -37,7 +38,7 @@ fun ActorCard(actor: Actor, navController: NavController, viewModel: MovieViewMo
             contentDescription = actor.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(150.dp)
+                .size(dimensionResource(id = R.dimen.image_size))
                 .aspectRatio(1f)
                 .clip(shape = RectangleShape)
                 .clickable(onClick = {
@@ -49,7 +50,7 @@ fun ActorCard(actor: Actor, navController: NavController, viewModel: MovieViewMo
         Text(
             text = actor.name,
             style = Typography.bodyMedium,
-            modifier = Modifier.padding(all = 20.dp),
+            modifier = Modifier.padding(all = dimensionResource(id = R.dimen.padding_large)),
         )
     }
 }

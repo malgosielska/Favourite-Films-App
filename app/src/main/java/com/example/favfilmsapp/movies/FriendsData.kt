@@ -55,7 +55,7 @@ object FriendsData {
 
     val friendsMovie = Movie(
         title = "Friends",
-        imageResource = R.drawable.friends_poster,
+        poster = R.drawable.friends_poster,
         description = friendsDescription,
         actors = friendsActors,
         scenes = friendsScenes

@@ -16,6 +16,8 @@ object BreakfastData {
         R.drawable.breakfast_8,
         R.drawable.breakfast_9,
         R.drawable.breakfast_10,
+        R.drawable.breakfast_11,
+        R.drawable.breakfast_12,
     )
 
     private val breakfastActors = listOf(
@@ -50,7 +52,7 @@ object BreakfastData {
 
     val breakfastMovie = Movie(
         title = "Breakfast at Tiffany's",
-        imageResource = R.drawable.breakfast_poster,
+        poster = R.drawable.breakfast_poster,
         description = breakfastDescription,
         actors = breakfastActors,
         scenes = breakfastScenes

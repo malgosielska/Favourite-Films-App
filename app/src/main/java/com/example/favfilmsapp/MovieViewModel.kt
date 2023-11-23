@@ -6,9 +6,10 @@ import com.example.favfilmsapp.movies.MoviesData
 
 class MovieViewModel : ViewModel() {
 
+    val movies = MoviesData.movies
+
     val selectedMovie = mutableStateOf<Movie?>(null)
     val selectedPhoto = mutableStateOf<Int?>(null)
-    val movies = MoviesData.movies
 
     fun changeSelectedMovie(movie: Movie) {
         selectedMovie.value = movie

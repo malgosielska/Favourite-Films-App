@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.MovieViewModel
 import com.example.favfilmsapp.PHOTO_ROUTE
+import com.example.favfilmsapp.R
 
 
 @Composable
@@ -34,7 +35,7 @@ fun PhotoItem(photo: Int, navController: NavController, viewModel: MovieViewMode
                 navController.navigate(PHOTO_ROUTE)
             }
             )
-            .padding(1.dp),
+            .padding(dimensionResource(id = R.dimen.padding_tiny)),
         contentScale = ContentScale.Crop,
     )
 }

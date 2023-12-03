@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.Actor
 import com.example.favfilmsapp.MovieViewModel
@@ -57,7 +59,7 @@ fun ActorCard(actor: Actor, navController: NavController, viewModel: MovieViewMo
 
 @Composable
 fun ActorList(actors: List<Actor>, navController: NavController, viewModel: MovieViewModel) {
-    LazyColumn {
+    LazyColumn(modifier = Modifier.height(600.dp)) {
         items(actors) { actor ->
             ActorCard(actor = actor, navController, viewModel)
         }

@@ -18,10 +18,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -87,6 +83,7 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
             }
             viewModel.changeSelectedTab(0)
         }
+
         1 -> {
             Column(
                 modifier = Modifier
@@ -96,6 +93,7 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
             }
             viewModel.changeSelectedTab(1)
         }
+
         2 -> {
             Column(
                 modifier = Modifier
@@ -140,11 +138,12 @@ fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
 @Composable
 fun MovieDetailsScreen(navController: NavController, viewModel: MovieViewModel) {
     val selectedMovie = viewModel.selectedMovie.value
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally)
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
     {
         if (selectedMovie != null) {
             MyAppTopBar(title = selectedMovie.title)

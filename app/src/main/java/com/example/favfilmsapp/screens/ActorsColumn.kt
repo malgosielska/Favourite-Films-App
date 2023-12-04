@@ -59,7 +59,7 @@ fun ActorCard(actor: Actor, navController: NavController, viewModel: MovieViewMo
 
 @Composable
 fun ActorList(actors: List<Actor>, navController: NavController, viewModel: MovieViewModel) {
-    LazyColumn(modifier = Modifier.height(600.dp)) {
+    LazyColumn(modifier = Modifier.height(500.dp)) {
         items(actors) { actor ->
             ActorCard(actor = actor, navController, viewModel)
         }

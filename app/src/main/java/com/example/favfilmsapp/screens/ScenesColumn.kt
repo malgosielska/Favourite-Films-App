@@ -45,10 +45,11 @@ fun PhotoItem(photo: Int, navController: NavController, viewModel: MovieViewMode
 @Composable
 fun ScenesGrid(photos: List<Int>, navController: NavController, viewModel: MovieViewModel) {
 
-    LazyVerticalGrid (
+    LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        modifier = Modifier.fillMaxSize()
-            .height(600.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .height(500.dp)
     ) {
         items(photos) { photo ->
             PhotoItem(photo, navController, viewModel)

@@ -5,6 +5,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -66,7 +67,7 @@ fun VideoView(lifecycle: Lifecycle, player: ExoPlayer?) {
             }
         },
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .aspectRatio(16 / 9f)
     )
 }

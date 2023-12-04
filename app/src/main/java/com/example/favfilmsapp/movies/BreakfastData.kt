@@ -50,7 +50,7 @@ object BreakfastData {
     private const val breakfastDescription =
         "A young New York socialite becomes interested in a young man who has moved into her apartment building, but her past threatens to get in the way."
 
-    private val breakfastVideos = listOf<Int>()
+    private val breakfastVideos = listOf(R.raw.breakfast_video_1)
 
     val breakfastMovie = Movie(
         title = "Breakfast at Tiffany's",

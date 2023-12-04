@@ -52,7 +52,7 @@ object FriendsData {
 
     private const val friendsDescription =
         "Friends is a 90's Comedy TV show, based in Manhattan, about 6 friends who go through just about every life experience imaginable together"
-    private val friendsVideos = listOf<Int>()
+    private val friendsVideos = listOf(R.raw.friends_video_1, R.raw.friends_video_2, R.raw.friends_video_3)
 
     val friendsMovie = Movie(
         title = "Friends",

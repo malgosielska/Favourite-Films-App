@@ -68,4 +68,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("androidx.media3:media3-exoplayer:1.0.0-beta02")
+    implementation("androidx.media3:media3-ui:1.0.0-beta02")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 }

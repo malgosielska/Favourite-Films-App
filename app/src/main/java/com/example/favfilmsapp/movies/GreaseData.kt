@@ -46,11 +46,14 @@ object GreaseData {
     private const val greaseDescription =
         "Good girl Sandy Olsson and greaser Danny Zuko fell in love over the summer. When they unexpectedly discover they're now in the same high school, will they be able to rekindle their romance?"
 
+    private val greaseVideos = listOf(R.raw.greasevideo1, R.raw.greasevideo1)
+
     val greaseMovie = Movie(
         title = "Grease",
         poster = R.drawable.grease_poster,
         description = greaseDescription,
         actors = greaseActors,
-        scenes = greaseScenes
+        scenes = greaseScenes,
+        videos = greaseVideos
     )
 }

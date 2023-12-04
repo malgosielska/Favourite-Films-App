@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.favfilmsapp.Movie
 import com.example.favfilmsapp.MovieViewModel
@@ -85,7 +84,6 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
                 ScenesGrid(photos = movie.scenes, navController, viewModel)
             }
         }
-
         1 -> {
             Column(
                 modifier = Modifier
@@ -94,13 +92,21 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
                 ActorList(actors = movie.actors, navController, viewModel)
             }
         }
+        2 -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                VideosTab(videos = movie.videos)
+            }
+        }
     }
 }
 
 @Composable
 fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
     TabRow(
-        containerColor = Color.LightGray, // Kolor tła całego TabRow
+        containerColor = Color.LightGray,
         selectedTabIndex = selectedTabIndex,
     ) {
         Tab(
@@ -117,6 +123,12 @@ fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
             onClick = { updateTabIndex(1) }) {
             Text(text = "Starring", style = Typography.bodyMedium)
         }
+        Tab(
+            selected = selectedTabIndex == 2,
+            modifier = Modifier.background(background),
+            onClick = { updateTabIndex(2) }) {
+            Text(text = "Videos", style = Typography.bodyMedium)
+        }
     }
 }
 
@@ -125,8 +137,8 @@ fun MovieDetailsScreen(navController: NavController, viewModel: MovieViewModel) 
     val selectedMovie = viewModel.selectedMovie.value
     Column (
         modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState()),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
         if (selectedMovie != null) {

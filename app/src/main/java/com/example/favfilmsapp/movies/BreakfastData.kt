@@ -50,11 +50,14 @@ object BreakfastData {
     private const val breakfastDescription =
         "A young New York socialite becomes interested in a young man who has moved into her apartment building, but her past threatens to get in the way."
 
+    private val breakfastVideos = listOf<Int>()
+
     val breakfastMovie = Movie(
         title = "Breakfast at Tiffany's",
         poster = R.drawable.breakfast_poster,
         description = breakfastDescription,
         actors = breakfastActors,
-        scenes = breakfastScenes
+        scenes = breakfastScenes,
+        videos = breakfastVideos
     )
 }

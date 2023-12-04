@@ -69,11 +69,13 @@ fun DescriptionRow(movie: Movie, navController: NavController, viewModel: MovieV
 
 @Composable
 fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+    val selectedTabIndex = viewModel.selectedTab.value
 
-    MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
-        selectedTabIndex = newTabIndex
-    })
+    if (selectedTabIndex != null) {
+        MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
+            viewModel.changeSelectedTab(newTabIndex)
+        })
+    }
 
     when (selectedTabIndex) {
         0 -> {
@@ -83,6 +85,7 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
             ) {
                 ScenesGrid(photos = movie.scenes, navController, viewModel)
             }
+            viewModel.changeSelectedTab(0)
         }
         1 -> {
             Column(
@@ -91,6 +94,7 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
             ) {
                 ActorList(actors = movie.actors, navController, viewModel)
             }
+            viewModel.changeSelectedTab(1)
         }
         2 -> {
             Column(
@@ -99,6 +103,7 @@ fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieVie
             ) {
                 VideosTab(videos = movie.videos)
             }
+            viewModel.changeSelectedTab(2)
         }
     }
 }

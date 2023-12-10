@@ -8,6 +8,8 @@ class MovieViewModel : ViewModel() {
 
     val movies = MoviesData.movies
 
+    var selectedTab = mutableStateOf<Int?>(0)
+
     val selectedMovie = mutableStateOf<Movie?>(null)
     val selectedPhoto = mutableStateOf<Int?>(null)
 
@@ -17,5 +19,9 @@ class MovieViewModel : ViewModel() {
 
     fun changeSelectedPhoto(photo: Int) {
         selectedPhoto.value = photo
+    }
+
+    fun changeSelectedTab(n: Int) {
+        selectedTab.value = n
     }
 }

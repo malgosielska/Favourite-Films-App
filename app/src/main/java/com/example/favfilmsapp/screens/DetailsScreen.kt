@@ -6,19 +6,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -64,12 +64,14 @@ fun DescriptionRow(movie: Movie, navController: NavController, viewModel: MovieV
 
 
 @Composable
-fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+fun SelectionTab(movie: Movie, navController: NavController, viewModel: MovieViewModel) {
+    val selectedTabIndex = viewModel.selectedTab.value
 
-    MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
-        selectedTabIndex = newTabIndex
-    })
+    if (selectedTabIndex != null) {
+        MediaTabs(selectedTabIndex = selectedTabIndex, updateTabIndex = { newTabIndex ->
+            viewModel.changeSelectedTab(newTabIndex)
+        })
+    }
 
     when (selectedTabIndex) {
         0 -> {
@@ -79,6 +81,7 @@ fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel
             ) {
                 ScenesGrid(photos = movie.scenes, navController, viewModel)
             }
+            viewModel.changeSelectedTab(0)
         }
 
         1 -> {
@@ -88,6 +91,17 @@ fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel
             ) {
                 ActorList(actors = movie.actors, navController, viewModel)
             }
+            viewModel.changeSelectedTab(1)
+        }
+
+        2 -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                VideosTab(videos = movie.videos)
+            }
+            viewModel.changeSelectedTab(2)
         }
     }
 }
@@ -95,7 +109,7 @@ fun ScenesAndActorsSection(movie: Movie, navController: NavController, viewModel
 @Composable
 fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
     TabRow(
-        containerColor = Color.LightGray, // Kolor tła całego TabRow
+        containerColor = Color.LightGray,
         selectedTabIndex = selectedTabIndex,
     ) {
         Tab(
@@ -112,17 +126,29 @@ fun MediaTabs(selectedTabIndex: Int, updateTabIndex: (Int) -> Unit) {
             onClick = { updateTabIndex(1) }) {
             Text(text = "Starring", style = Typography.bodyMedium)
         }
+        Tab(
+            selected = selectedTabIndex == 2,
+            modifier = Modifier.background(background),
+            onClick = { updateTabIndex(2) }) {
+            Text(text = "Videos", style = Typography.bodyMedium)
+        }
     }
 }
 
 @Composable
 fun MovieDetailsScreen(navController: NavController, viewModel: MovieViewModel) {
     val selectedMovie = viewModel.selectedMovie.value
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
         if (selectedMovie != null) {
             MyAppTopBar(title = selectedMovie.title)
             DescriptionRow(movie = selectedMovie, navController, viewModel)
-            ScenesAndActorsSection(movie = selectedMovie, navController, viewModel)
+            SelectionTab(movie = selectedMovie, navController, viewModel)
         }
     }
 }
